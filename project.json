@@ -1,0 +1,20 @@
+{
+  "overview": "Galsen Gaming is a modern dark-themed gaming e-commerce storefront with a full product catalog, product detail pages, and a working cart and checkout flow.",
+  "features": [
+    "Browse a rich home page with hero, categories, popular products, promo, reviews and FAQ",
+    "Shop all products with category filters, price and popularity sorting, and search",
+    "Open detailed product pages with image gallery, specs, reviews and similar products",
+    "Add items to a persistent cart, adjust quantities and remove products",
+    "Complete a clear demo checkout with delivery form and order confirmation",
+    "Fully responsive experience with a mobile hamburger menu"
+  ],
+  "category": "e-commerce",
+  "tags": [
+    "gaming",
+    "e-commerce",
+    "storefront",
+    "dark-theme",
+    "catalog"
+  ],
+  "last_updated": "2026-10-03T20:36:33.264Z"
+}

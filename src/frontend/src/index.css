@@ -1,0 +1,194 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.75rem;
+
+    /* Dark-first storefront — light mode is a soft inverse, rarely used */
+    --background: 0.97 0.005 285;
+    --foreground: 0.16 0.02 285;
+    --card: 1.0 0.0 0;
+    --card-foreground: 0.16 0.02 285;
+    --popover: 1.0 0.0 0;
+    --popover-foreground: 0.16 0.02 285;
+
+    --primary: 0.55 0.24 292;
+    --primary-foreground: 0.98 0.005 292;
+
+    --secondary: 0.94 0.01 285;
+    --secondary-foreground: 0.25 0.02 285;
+    --muted: 0.94 0.01 285;
+    --muted-foreground: 0.5 0.015 285;
+
+    --accent: 0.62 0.17 245;
+    --accent-foreground: 0.98 0.005 245;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0.005 25;
+    --success: 0.6 0.16 150;
+    --success-foreground: 0.98 0.005 150;
+    --warning: 0.75 0.15 85;
+    --warning-foreground: 0.16 0.02 85;
+
+    --border: 0.9 0.008 285;
+    --input: 0.9 0.008 285;
+    --ring: 0.55 0.24 292;
+
+    --chart-1: 0.55 0.24 292;
+    --chart-2: 0.62 0.17 245;
+    --chart-3: 0.6 0.16 150;
+    --chart-4: 0.75 0.15 85;
+    --chart-5: 0.55 0.22 25;
+
+    --sidebar: 0.97 0.005 285;
+    --sidebar-foreground: 0.16 0.02 285;
+    --sidebar-primary: 0.55 0.24 292;
+    --sidebar-primary-foreground: 0.98 0.005 292;
+    --sidebar-accent: 0.94 0.01 285;
+    --sidebar-accent-foreground: 0.25 0.02 285;
+    --sidebar-border: 0.9 0.008 285;
+    --sidebar-ring: 0.55 0.24 292;
+  }
+
+  .dark {
+    --background: 0.13 0.022 285;
+    --foreground: 0.96 0.008 285;
+    --card: 0.17 0.026 285;
+    --card-foreground: 0.96 0.008 285;
+    --popover: 0.19 0.028 285;
+    --popover-foreground: 0.96 0.008 285;
+
+    --primary: 0.62 0.24 292;
+    --primary-foreground: 0.98 0.005 292;
+
+    --secondary: 0.22 0.028 285;
+    --secondary-foreground: 0.9 0.008 285;
+    --muted: 0.22 0.028 285;
+    --muted-foreground: 0.68 0.02 285;
+
+    --accent: 0.72 0.16 245;
+    --accent-foreground: 0.13 0.022 245;
+
+    --destructive: 0.62 0.21 25;
+    --destructive-foreground: 0.98 0.005 25;
+    --success: 0.7 0.16 150;
+    --success-foreground: 0.13 0.022 150;
+    --warning: 0.78 0.15 85;
+    --warning-foreground: 0.13 0.022 85;
+
+    --border: 0.28 0.028 285;
+    --input: 0.28 0.028 285;
+    --ring: 0.62 0.24 292;
+
+    --chart-1: 0.62 0.24 292;
+    --chart-2: 0.72 0.16 245;
+    --chart-3: 0.7 0.16 150;
+    --chart-4: 0.78 0.15 85;
+    --chart-5: 0.62 0.21 25;
+
+    --sidebar: 0.15 0.024 285;
+    --sidebar-foreground: 0.96 0.008 285;
+    --sidebar-primary: 0.62 0.24 292;
+    --sidebar-primary-foreground: 0.98 0.005 292;
+    --sidebar-accent: 0.22 0.028 285;
+    --sidebar-accent-foreground: 0.9 0.008 285;
+    --sidebar-border: 0.28 0.028 285;
+    --sidebar-ring: 0.62 0.24 292;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .transition-fast {
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Electric violet → electric blue brand gradient */
+  .bg-gradient-primary {
+    background-image: linear-gradient(
+      135deg,
+      oklch(0.62 0.24 292) 0%,
+      oklch(0.58 0.22 268) 55%,
+      oklch(0.68 0.18 245) 100%
+    );
+  }
+
+  .text-gradient-primary {
+    background-image: linear-gradient(
+      100deg,
+      oklch(0.72 0.2 292) 0%,
+      oklch(0.74 0.16 245) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Thin gradient border used on cards, badges and active states */
+  .border-gradient {
+    position: relative;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+  }
+  .border-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      oklch(0.62 0.24 292 / 0.7),
+      oklch(0.68 0.18 245 / 0.35),
+      transparent 70%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 0 1px oklch(0.62 0.24 292 / 0.25), 0 8px 30px -8px
+      oklch(0.62 0.24 292 / 0.45);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 0 1px oklch(0.72 0.16 245 / 0.25), 0 8px 30px -8px
+      oklch(0.72 0.16 245 / 0.45);
+  }
+}

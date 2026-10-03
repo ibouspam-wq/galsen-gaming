@@ -1,0 +1,185 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = int;
+type SortOrder = 
+ variant {
+   popularity;
+   priceAsc;
+   priceDesc;
+   rating;
+ };
+type ShippingInfo = 
+ record {
+   address: text;
+   city: text;
+   country: text;
+   email: text;
+   fullName: text;
+   notes: opt text;
+   phone: text;
+   postalCode: text;
+ };
+type Result__1_1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result__1 = 
+ variant {
+   err: OrderError;
+   ok: Order;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type ProductId = nat;
+type ProductFilter = 
+ record {
+   categoryId: opt CategoryId;
+   search: opt text;
+   sort: opt SortOrder;
+ };
+type Product = 
+ record {
+   availability: Availability;
+   categoryId: CategoryId;
+   description: text;
+   discountPercent: nat;
+   features: vec text;
+   id: ProductId;
+   images: vec text;
+   name: text;
+   oldPrice: opt Price;
+   popularity: nat;
+   price: Price;
+   rating: nat;
+   reviewCount: nat;
+ };
+type Price = nat;
+type OrderStatus = 
+ variant {
+   cancelled;
+   confirmed;
+   delivered;
+   pending;
+   shipped;
+ };
+type OrderLine = 
+ record {
+   lineTotal: Price;
+   name: text;
+   productId: ProductId;
+   quantity: nat;
+   unitPrice: Price;
+ };
+type OrderId = nat;
+type OrderError = 
+ variant {
+   emptyCart;
+   invalidQuantity;
+   unknownProduct: ProductId;
+ };
+type Order = 
+ record {
+   createdAt: Timestamp;
+   id: OrderId;
+   lines: vec OrderLine;
+   shipping: ShippingInfo;
+   shippingFee: Price;
+   status: OrderStatus;
+   subtotal: Price;
+   total: Price;
+ };
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type CreateOrderInput = 
+ record {
+   lines: vec OrderLine;
+   shipping: ShippingInfo;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type CategoryId = text;
+type Category = 
+ record {
+   description: text;
+   id: CategoryId;
+   image: text;
+   name: text;
+ };
+type Availability = 
+ variant {
+   inStock;
+   lowStock;
+   outOfStock;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1_1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Crée une commande de démonstration (aucun paiement réel).
+  createOrder: (input: CreateOrderInput) -> (Result__1);
+  execute: (qJson: text) -> (Result) query;
+  /// Retourne la documentation Markdown de l'API publique actuelle.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Retourne une catégorie par son identifiant.
+  getCategory: (id: text) -> (opt Category) query;
+  /// Retourne une commande de démonstration par son identifiant.
+  getOrder: (id: nat) -> (opt Order) query;
+  /// Retourne un produit par son identifiant.
+  getProduct: (id: nat) -> (opt Product) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Retourne toutes les catégories.
+  listCategories: () -> (vec Category) query;
+  /// Retourne les produits les plus populaires.
+  listPopularProducts: (limit: nat) -> (vec Product) query;
+  /// Retourne tous les produits du catalogue.
+  listProducts: () -> (vec Product) query;
+  /// Retourne les produits d'une catégorie.
+  listProductsByCategory: (categoryId: text) -> (vec Product) query;
+  /// Retourne les produits en promotion.
+  listPromoProducts: () -> (vec Product) query;
+  schema: () -> (text) query;
+  /// Recherche, filtre et trie les produits.
+  searchProducts: (filter: ProductFilter) -> (vec Product) query;
+}
